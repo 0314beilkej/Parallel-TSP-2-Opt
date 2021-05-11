@@ -1,4 +1,4 @@
-package sample;
+package parallelTSP;
 
 import java.awt.List;
 import java.awt.geom.Point2D;
