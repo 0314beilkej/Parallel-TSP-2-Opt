@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /*****************************************************************************************/
-/** 		Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
+/**  Parallel version of original code found at 					**/
+/**			https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
 /*****************************************************************************************/
 
 public class Load {
