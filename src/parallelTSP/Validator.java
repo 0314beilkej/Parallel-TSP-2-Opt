@@ -1,4 +1,4 @@
-package sample;
+package parallelTSP;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ tour is valid.
  */
 
 /*****************************************************************************************/
-/** 		Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
+/** 	Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
 /*****************************************************************************************/
 
 public class Validator {
