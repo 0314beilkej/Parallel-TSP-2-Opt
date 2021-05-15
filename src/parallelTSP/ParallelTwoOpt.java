@@ -1,7 +1,13 @@
-package sample;
+package parallelTSP;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+
+/*****************************************************************************************/
+/** 		Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample    **/
+/**			Modified by Julia Beilke for COSC 6060 - Parallel and Distributed Systems	**/
+/** 		Project to parallelize 2-Opt approach for traveling salesman problem		**/
+/*****************************************************************************************/
 
 public class ParallelTwoOpt implements Runnable {
 	private ArrayList<Point2D> totalBestTour;
@@ -15,53 +21,17 @@ public class ParallelTwoOpt implements Runnable {
 		this.tId = id;
 	}
 
+	/* Runnable method calls alternate to get the best tour */
 	public void run() {
 		this.totalBestDist = Length.routeLength(totalBestTour);
 		this.totalBestTour = alternate(totalBestTour, numThreads, -1, -1, 0);
 
 	}
 
-	public void run1() {
-		// Thread t = Thread.currentThread();
-		// this.tId = Integer.valueOf(t.getName());
-		double newDist;
-
-		totalBestDist = Length.routeLength(totalBestTour);
-		cities = this.totalBestTour;
-		// System.out.println("Thread #" + tId + " running on cities with best dist = "
-		// + bestDist);
-
-		// initialize inner/outer loops avoiding adjacent calculations and making use of
-		// problem symmetry to half total comparisons.
-
-		for (int i = tId + 1; i < cities.size() - 2; i += numThreads) {
-			for (int j = i + 1; j < cities.size() - 1; j++) {
-
-				// check distance of line A,B + line C,D against A,C + B,D if there is
-				// improvement, call swap method.
-				if ((cities.get(i).distance(cities.get(i - 1))
-						+ cities.get(j + 1).distance(cities.get(j))) >= (cities.get(i).distance(cities.get(j + 1))
-								+ cities.get(i - 1).distance(cities.get(j)))) {
-
-					newTour = swap(cities, i, j); // pass arraylist and 2 points to be swapped.
-
-					newDist = Length.routeLength(newTour);
-
-					if (newDist < totalBestDist) { // if the swap results in an improved distance, increment counters
-													// and
-													// update distance/tour
-						totalBestTour = newTour;
-						totalBestDist = newDist;
-					}
-
-				}
-
-			}
-		}
-		// this.bestTour = cities;
-		// System.out.println("Thread #" + tId + " finished. Best length "+ bestDist);
-	}
-
+	/*
+	 * Copy of TwoOpt Alternate method, modified by Julia Beilke. Iterates through
+	 * subset of points using round-robin approach.
+	 */
 	private ArrayList<Point2D> alternate(ArrayList<Point2D> cities, int numThreads, int iIn, int jIn, int depth) {
 		ArrayList<Point2D> newTour, bestTour;
 		double bestDist = Length.routeLength(cities);
@@ -74,20 +44,19 @@ public class ParallelTwoOpt implements Runnable {
 		int iterations = 0;
 		long comparisons = 0;
 
-
 		// System.out.println("Thread #" + tId + " running on cities with best length "
 		// + bestDist);
 
 		// initialize inner/outer loops avoiding adjacent calculations and making use of
 		// problem symmetry to half total comparisons.
-		
+
 		if (depth != 0) {
-			//numThreads = 1;
+			// numThreads = 1;
 		}
 		while (swaps > 0) {
 			swaps = 0;
-			for (int i = tId+1; i < cities.size() - 2; i += numThreads) {
-				for (int j = i; j < cities.size() - 1; j ++) {
+			for (int i = tId + 1; i < cities.size() - 2; i += numThreads) {
+				for (int j = i; j < cities.size() - 1; j++) {
 					if (i != iIn && j != jIn) {
 						comparisons++;
 						// check distance of line A,B + line C,D against A,C + B,D if there is
@@ -115,7 +84,7 @@ public class ParallelTwoOpt implements Runnable {
 								if (newDist < bestDist) {
 									bestTour = newTour;
 									bestDist = newDist;
-									//swaps++;
+									// swaps++;
 									// improve++;
 								}
 
@@ -127,10 +96,11 @@ public class ParallelTwoOpt implements Runnable {
 		}
 		// System.out.println("Thread #" + tId + " running on cities with best length "
 		// + bestDist);
-		
+
 		return bestTour;
 	}
 
+	/* Copy of swap method from TwoOpt class */
 	private static ArrayList<Point2D> swap(ArrayList<Point2D> cities, int i, int j) {
 		// conducts a 2 opt swap by inverting the order of the points between i and j
 		ArrayList<Point2D> newTour = new ArrayList<>();

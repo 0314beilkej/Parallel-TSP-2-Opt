@@ -1,4 +1,4 @@
-package sample;
+package parallelTSP;
 /*
 run a nearest neighbour on the passed in ArrayList
 return the nearest neighbour result.
