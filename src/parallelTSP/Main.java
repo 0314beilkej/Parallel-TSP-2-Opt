@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /*****************************************************************************************/
-/** 		Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample    **/
-/**			Modified by Julia Beilke for COSC 6060 - Parallel and Distributed Systems	**/
-/** 		Project to parallelize 2-Opt approach for traveling salesman problem		**/
+/** 	Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample        **/
+/**	Modified by Julia Beilke for COSC 6060 - Parallel and Distributed Systems	**/
+/** 	Project to parallelize 2-Opt approach for traveling salesman problem		**/
 /*****************************************************************************************/
 
 /* Main test class */
