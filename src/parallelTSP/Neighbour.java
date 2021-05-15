@@ -5,7 +5,7 @@ return the nearest neighbour result.
  */
 
 /*****************************************************************************************/
-/** 		Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
+/** 	Code found at https://github.com/jackspyder/2-opt/tree/master/src/sample	**/
 /*****************************************************************************************/
 
 import java.awt.geom.Point2D;
